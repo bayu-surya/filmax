@@ -1,22 +1,14 @@
-import 'package:filmax/consumerprovider/common/navigation.dart';
-import 'package:filmax/consumerprovider/common/styles.dart';
 import 'package:filmax/consumerprovider/data/api/api_service.dart';
-import 'package:filmax/consumerprovider/data/db/database_helper.dart';
-import 'package:filmax/consumerprovider/provider/database_provider.dart';
 import 'package:filmax/consumerprovider/provider/detailmovie_provider.dart';
-import 'package:filmax/consumerprovider/provider/movienow_provider.dart';
-import 'package:filmax/consumerprovider/provider/moviepopular_provider.dart';
-import 'package:filmax/consumerprovider/provider/movietop_provider.dart';
-import 'package:filmax/consumerprovider/provider/movieupcoming_provider.dart';
 import 'package:filmax/consumerprovider/provider/movievideo_provider.dart';
 import 'package:filmax/consumerprovider/ui/movie_detail_page.dart';
+import 'package:filmax/core/common/navigation.dart';
+import 'package:filmax/core/common/styles.dart';
 import 'package:filmax/injection_container.dart';
 import 'package:filmax/presentation/bloc/movienow/movie_now_bloc.dart';
 import 'package:filmax/presentation/bloc/moviepopular/movie_popular_bloc.dart';
 import 'package:filmax/presentation/bloc/movietop/movie_top_bloc.dart';
 import 'package:filmax/presentation/bloc/movieupcoming/movie_upcoming_bloc.dart';
-// import 'package:filmax/consumerprovider/ui/splashscreen_page.dart';
-// import 'package:filmax/consumerprovider/ui/home_page.dart';
 import 'package:filmax/presentation/pages/home_page.dart';
 import 'package:filmax/presentation/pages/splashscreen_page.dart';
 import 'package:flutter/material.dart';
@@ -40,21 +32,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
-        ),
-        ChangeNotifierProvider<MoviePopularProvider>(
-          create: (_) => MoviePopularProvider(apiService: ApiService()),
-        ),
-        ChangeNotifierProvider<MovieNowProvider>(
-          create: (_) => MovieNowProvider(apiService: ApiService()),
-        ),
-        ChangeNotifierProvider<MovieUpcomingProvider>(
-          create: (_) => MovieUpcomingProvider(apiService: ApiService()),
-        ),
-        ChangeNotifierProvider<MovieTopProvider>(
-          create: (_) => MovieTopProvider(apiService: ApiService()),
-        ),
         ChangeNotifierProvider<DetailMovieProvider>(
           create: (_) => DetailMovieProvider(apiService: ApiService()),
         ),
@@ -107,7 +84,6 @@ class MyApp extends StatelessWidget {
           routes: {
             Splashscreen.routeName: (context) => Splashscreen(),
             HomePage.routeName: (context) => HomePage(),
-            // ExamplePage.routeName: (context) => ExamplePage(),
             MovieDetailPage.routeName: (context) => MovieDetailPage(
                   id: ModalRoute.of(context)!.settings.arguments.toString(),
                 ),

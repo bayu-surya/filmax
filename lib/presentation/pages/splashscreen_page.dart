@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:filmax/consumerprovider/common/styles.dart';
+import 'package:filmax/core/common/styles.dart';
 import 'package:filmax/presentation/pages/home_page.dart';
 // import 'package:filmax/consumerprovider/ui/home_page.dart';
 import 'package:flutter/material.dart';

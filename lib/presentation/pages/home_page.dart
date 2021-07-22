@@ -1,9 +1,3 @@
-import 'package:filmax/consumerprovider/provider/tidakdigunakan/search_restaurant_provider.dart'
-    as search;
-import 'package:filmax/consumerprovider/ui/tidakdigunakan/search.dart';
-import 'package:filmax/consumerprovider/widgets/app_drawer.dart';
-import 'package:filmax/consumerprovider/widgets/card_nowplaying.dart';
-import 'package:filmax/consumerprovider/widgets/tidakdigunakan/alert_connection.dart';
 import 'package:filmax/core/util/data_mapper.dart' as mapper;
 import 'package:filmax/presentation/bloc/movienow/movie_now_bloc.dart' as now;
 import 'package:filmax/presentation/bloc/moviepopular/bloc.dart';
@@ -11,9 +5,11 @@ import 'package:filmax/presentation/bloc/moviepopular/movie_popular_bloc.dart';
 import 'package:filmax/presentation/bloc/movietop/movie_top_bloc.dart' as top;
 import 'package:filmax/presentation/bloc/movieupcoming/movie_upcoming_bloc.dart'
     as upcoming;
+import 'package:filmax/presentation/widgets/alert_connection.dart';
+import 'package:filmax/presentation/widgets/app_drawer.dart';
+import 'package:filmax/presentation/widgets/card_nowplaying.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home2';
@@ -50,12 +46,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {
-                  Provider.of<search.SearchRestaurantProvider>(context,
-                          listen: false)
-                      .empty();
-                  Navigator.pushNamed(context, Search.routeName);
-                },
+                onTap: () {},
                 child: Icon(
                   Icons.search,
                   size: 26.0,

@@ -1,5 +1,3 @@
-import 'package:filmax/consumerprovider/data/model/movie_popular.dart'
-    as consumer;
 import 'package:filmax/data/models/movie_now.dart' as now;
 import 'package:filmax/data/models/movie_popular.dart';
 import 'package:filmax/data/models/movie_top.dart' as top;
@@ -14,8 +12,8 @@ class DataMapper {
   //   );
   // }
 
-  consumer.Result entitieToModel(Movie data) {
-    return consumer.Result(
+  Result entitieToModel(Movie data) {
+    return Result(
       adult: data.adult,
       backdropPath: data.backdropPath,
       genreIds: data.genreIds,
