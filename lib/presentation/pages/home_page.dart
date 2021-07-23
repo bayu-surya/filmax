@@ -66,13 +66,9 @@ class _HomePageState extends State<HomePage> {
               child: BlocBuilder<now.MovieNowBloc, now.MovieNowState>(
                 builder: (context, state) {
                   if (state is now.Empty) {
-                    return Text(
-                      'Empty',
-                    );
+                    return _buildContainerNoData("Empty");
                   } else if (state is now.Loading) {
-                    return Text(
-                      'Loading',
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state is now.Loaded) {
                     return Center(
                       child: ListView.builder(
@@ -89,61 +85,22 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   } else if (state is now.Error) {
-                    return Text(
-                      state.message,
-                    );
+                    return _buildCenter(state.message);
                   } else {
-                    return Text(
-                      'Lain',
-                    );
+                    return Center(child: Text(''));
                   }
                 },
               ),
             ),
-            // Container(
-            //   height: 270,
-            //   child: Consumer<MovieNowProvider>(
-            //     builder: (context, state, _) {
-            //       if (state.state == ResultState.Loading) {
-            //         return Center(child: CircularProgressIndicator());
-            //       } else if (state.state == ResultState.HasData) {
-            //         return Center(
-            //           child: ListView.builder(
-            //             scrollDirection: Axis.horizontal,
-            //             padding: EdgeInsets.all(3.0),
-            //             itemCount: state.result!.results.length,
-            //             itemBuilder: (context, index) {
-            //               return CardArticle(
-            //                 article: DataMapper().movieNowToPopuler(
-            //                     state.result!.results[index]),
-            //                 jenis: '',
-            //               );
-            //             },
-            //           ),
-            //         );
-            //       } else if (state.state == ResultState.NoData) {
-            //         return _buildContainerNoData(state.message);
-            //       } else if (state.state == ResultState.Error) {
-            //         return _buildCenter(state.message);
-            //       } else {
-            //         return Center(child: Text(''));
-            //       }
-            //     },
-            //   ),
-            // ),
             _tittleListView("Top Rated"),
             Container(
               height: 270,
               child: BlocBuilder<top.MovieTopBloc, top.MovieTopState>(
                 builder: (context, state) {
                   if (state is top.Empty) {
-                    return Text(
-                      'Empty',
-                    );
+                    return _buildContainerNoData("Empty");
                   } else if (state is top.Loading) {
-                    return Text(
-                      'Loading',
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state is top.Loaded) {
                     return Center(
                       child: ListView.builder(
@@ -160,61 +117,22 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   } else if (state is top.Error) {
-                    return Text(
-                      state.message,
-                    );
+                    return _buildCenter(state.message);
                   } else {
-                    return Text(
-                      'Lain',
-                    );
+                    return Center(child: Text(''));
                   }
                 },
               ),
             ),
-            // Container(
-            //   height: 270,
-            //   child: Consumer<MovieTopProvider>(
-            //     builder: (context, state, _) {
-            //       if (state.state == ResultState.Loading) {
-            //         return Center(child: CircularProgressIndicator());
-            //       } else if (state.state == ResultState.HasData) {
-            //         return Center(
-            //           child: ListView.builder(
-            //             scrollDirection: Axis.horizontal,
-            //             padding: EdgeInsets.all(3.0),
-            //             itemCount: state.result!.results.length,
-            //             itemBuilder: (context, index) {
-            //               return CardArticle(
-            //                 article: DataMapper().movieTopToPopuler(
-            //                     state.result!.results[index]),
-            //                 jenis: '',
-            //               );
-            //             },
-            //           ),
-            //         );
-            //       } else if (state.state == ResultState.NoData) {
-            //         return _buildContainerNoData(state.message);
-            //       } else if (state.state == ResultState.Error) {
-            //         return _buildCenter(state.message);
-            //       } else {
-            //         return Center(child: Text(''));
-            //       }
-            //     },
-            //   ),
-            // ),
             _tittleListView("Popular"),
             Container(
               height: 270,
               child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
                 builder: (context, state) {
                   if (state is Empty) {
-                    return Text(
-                      'Empty',
-                    );
+                    return _buildContainerNoData("Empty");
                   } else if (state is Loading) {
-                    return Text(
-                      'Loading',
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state is Loaded) {
                     return Center(
                       child: ListView.builder(
@@ -231,44 +149,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   } else if (state is Error) {
-                    return Text(
-                      state.message,
-                    );
+                    return _buildCenter(state.message);
                   } else {
-                    return Text(
-                      'Lain',
-                    );
+                    return Center(child: Text(''));
                   }
                 },
               ),
-
-              // Consumer<MoviePopularProvider>(
-              //   builder: (context, state, _) {
-              //     if (state.state == ResultState.Loading) {
-              //       return Center(child: CircularProgressIndicator());
-              //     } else if (state.state == ResultState.HasData) {
-              //       return Center(
-              //         child: ListView.builder(
-              //           scrollDirection: Axis.horizontal,
-              //           padding: EdgeInsets.all(3.0),
-              //           itemCount: state.result!.results.length,
-              //           itemBuilder: (context, index) {
-              //             return CardArticle(
-              //               article: state.result!.results[index],
-              //               jenis: '',
-              //             );
-              //           },
-              //         ),
-              //       );
-              //     } else if (state.state == ResultState.NoData) {
-              //       return _buildContainerNoData(state.message);
-              //     } else if (state.state == ResultState.Error) {
-              //       return _buildCenter(state.message);
-              //     } else {
-              //       return Center(child: Text(''));
-              //     }
-              //   },
-              // ),
             ),
             _tittleListView("Upcoming"),
             Container(
@@ -277,13 +163,9 @@ class _HomePageState extends State<HomePage> {
                   upcoming.MovieUpcomingState>(
                 builder: (context, state) {
                   if (state is upcoming.Empty) {
-                    return Text(
-                      'Empty',
-                    );
+                    return _buildContainerNoData("Empty");
                   } else if (state is upcoming.Loading) {
-                    return Text(
-                      'Loading',
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state is upcoming.Loaded) {
                     return Center(
                       child: ListView.builder(
@@ -300,48 +182,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   } else if (state is upcoming.Error) {
-                    return Text(
-                      state.message,
-                    );
+                    return _buildCenter(state.message);
                   } else {
-                    return Text(
-                      'Lain',
-                    );
+                    return Center(child: Text(''));
                   }
                 },
               ),
             ),
-            // Container(
-            //   height: 270,
-            //   child: Consumer<MovieUpcomingProvider>(
-            //     builder: (context, state, _) {
-            //       if (state.state == ResultState.Loading) {
-            //         return Center(child: CircularProgressIndicator());
-            //       } else if (state.state == ResultState.HasData) {
-            //         return Center(
-            //           child: ListView.builder(
-            //             scrollDirection: Axis.horizontal,
-            //             padding: EdgeInsets.all(3.0),
-            //             itemCount: state.result!.results.length,
-            //             itemBuilder: (context, index) {
-            //               return CardArticle(
-            //                 article: DataMapper().movieUpcomingToPopuler(
-            //                     state.result!.results[index]),
-            //                 jenis: '',
-            //               );
-            //             },
-            //           ),
-            //         );
-            //       } else if (state.state == ResultState.NoData) {
-            //         return _buildContainerNoData(state.message);
-            //       } else if (state.state == ResultState.Error) {
-            //         return _buildCenter(state.message);
-            //       } else {
-            //         return Center(child: Text(''));
-            //       }
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),

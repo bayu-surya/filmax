@@ -1,7 +1,7 @@
-import 'package:filmax/consumerprovider/data/api/api_service.dart';
-import 'package:filmax/consumerprovider/ui/movie_detail_page.dart';
 import 'package:filmax/core/common/navigation.dart';
+import 'package:filmax/core/util/api_service.dart';
 import 'package:filmax/data/models/movie_popular.dart';
+import 'package:filmax/presentation/pages/movie_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class CardArticle extends StatelessWidget {
