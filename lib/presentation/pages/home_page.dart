@@ -5,6 +5,7 @@ import 'package:filmax/presentation/bloc/moviepopular/movie_popular_bloc.dart';
 import 'package:filmax/presentation/bloc/movietop/movie_top_bloc.dart' as top;
 import 'package:filmax/presentation/bloc/movieupcoming/movie_upcoming_bloc.dart'
     as upcoming;
+import 'package:filmax/presentation/pages/map_page.dart';
 import 'package:filmax/presentation/widgets/alert_connection.dart';
 import 'package:filmax/presentation/widgets/app_drawer.dart';
 import 'package:filmax/presentation/widgets/card_nowplaying.dart';
@@ -46,7 +47,9 @@ class _HomePageState extends State<HomePage> {
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, MapPage.routeName);
+                },
                 child: Icon(
                   Icons.search,
                   size: 26.0,

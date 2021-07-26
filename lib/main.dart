@@ -8,6 +8,9 @@ import 'package:filmax/presentation/bloc/movietop/movie_top_bloc.dart';
 import 'package:filmax/presentation/bloc/movieupcoming/movie_upcoming_bloc.dart';
 import 'package:filmax/presentation/bloc/movievideo/movievideo_bloc.dart';
 import 'package:filmax/presentation/pages/home_page.dart';
+import 'package:filmax/presentation/pages/map_page.dart';
+import 'package:filmax/presentation/pages/map_page_2.dart';
+import 'package:filmax/presentation/pages/map_page_3.dart';
 import 'package:filmax/presentation/pages/movie_detail_page.dart';
 import 'package:filmax/presentation/pages/splashscreen_page.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +81,9 @@ class MyApp extends StatelessWidget {
         routes: {
           Splashscreen.routeName: (context) => Splashscreen(),
           HomePage.routeName: (context) => HomePage(),
+          MapPage.routeName: (context) => MapPage(),
+          Map2Page.routeName: (context) => Map2Page(),
+          Map3Page.routeName: (context) => Map3Page(),
           MovieDetailPage.routeName: (context) => MovieDetailPage(
                 id: ModalRoute.of(context)!.settings.arguments.toString(),
               ),
