@@ -10,11 +10,6 @@ import 'package:filmax/domain/usecases/get_list_movie_video.dart';
 part 'movievideo_event.dart';
 part 'movievideo_state.dart';
 
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE =
-    'Invalid Input - The number must be a positive integer or zero.';
-
 class MovievideoBloc extends Bloc<MovievideoEvent, MovievideoState> {
   final GetListMovieVideo getVideo;
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:filmax/core/common/styles.dart';
-import 'package:filmax/presentation/pages/home_page.dart';
+import 'package:filmax/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class Splashscreen extends StatefulWidget {
@@ -51,7 +51,7 @@ class _SplashscreenState extends State<Splashscreen> {
       (Timer timer) {
         if (_start == 0) {
           timer.cancel();
-          Navigator.pushReplacementNamed(context, HomePage.routeName);
+          Navigator.pushReplacementNamed(context, LoginPage.routeName);
         } else {
           setState(() {
             _start--;

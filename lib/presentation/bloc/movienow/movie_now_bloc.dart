@@ -11,11 +11,6 @@ import 'package:filmax/domain/usecases/get_list_movie_now.dart';
 part 'movie_now_event.dart';
 part 'movie_now_state.dart';
 
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE =
-    'Invalid Input - The number must be a positive integer or zero.';
-
 class MovieNowBloc extends Bloc<MovieNowEvent, MovieNowState> {
   final GetListMovieNow getNow;
 

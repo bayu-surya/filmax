@@ -12,31 +12,32 @@ class AppDrawer extends StatelessWidget {
           _createDrawerItem(
               icon: Icons.home,
               text: 'Home',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, HomePage.routeName)),
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomePage.routeName, (Route<dynamic> route) => false)),
+          // Navigator.pushReplacementNamed(context, HomePage.routeName)),
           _createDrawerItem(
               icon: Icons.play_circle_outline,
               text: 'Now Playing',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, HomePage.routeName)),
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomePage.routeName, (Route<dynamic> route) => false)),
           _createDrawerItem(
               icon: Icons.show_chart,
               text: 'Top Rated',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, HomePage.routeName)),
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomePage.routeName, (Route<dynamic> route) => false)),
           _createDrawerItem(
               icon: Icons.queue_play_next,
               text: 'Upcoming',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, HomePage.routeName)),
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomePage.routeName, (Route<dynamic> route) => false)),
           Divider(
             thickness: 1.0,
           ),
           _createDrawerItem(
               icon: Icons.help_outline,
               text: 'About',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, HomePage.routeName)),
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomePage.routeName, (Route<dynamic> route) => false)),
         ],
       ),
     );

@@ -1,12 +1,18 @@
+import 'package:filmax/data/models/delete_rating_response.dart';
 import 'package:filmax/data/models/detail_movie.dart' as detailRemote;
 import 'package:filmax/data/models/movie_now.dart' as now;
 import 'package:filmax/data/models/movie_popular.dart';
 import 'package:filmax/data/models/movie_top.dart' as top;
 import 'package:filmax/data/models/movie_upcoming.dart' as upcoming;
 import 'package:filmax/data/models/movie_video.dart' as videoRemote;
+import 'package:filmax/data/models/rate_response.dart';
+import 'package:filmax/data/models/review_remote.dart' as reviewRemote;
+import 'package:filmax/domain/entities/delete_rating.dart';
 import 'package:filmax/domain/entities/detail_movie.dart';
 import 'package:filmax/domain/entities/movie.dart';
 import 'package:filmax/domain/entities/movie_video.dart';
+import 'package:filmax/domain/entities/rate.dart';
+import 'package:filmax/domain/entities/review.dart';
 
 class DataMapper {
   // MoviePopular modelToEntitie(Movie data) {
@@ -265,4 +271,73 @@ class DataMapper {
       voteCount: data.voteCount,
     );
   }
+
+  AuthorDetails mapAuthorDetailsToEntities(reviewRemote.AuthorDetails data) {
+    return AuthorDetails(
+      name: data.name,
+      username: data.username,
+      avatarPath: data.avatarPath,
+      rating: data.rating,
+    );
+  }
+
+  List<Review> mapReviewRemoteToEntities(reviewRemote.ReviewRemote data) {
+    List<Review> result = [];
+    int? idMovie = data.id;
+    if (data.results!.isNotEmpty) {
+      data.results!.forEach((element) {
+        Review movie = Review(
+          idMovie: idMovie.toString(),
+          author: element.author,
+          authorDetails: element.authorDetails != null
+              ? mapAuthorDetailsToEntities(element.authorDetails!)
+              : null,
+          content: element.content,
+          createdAt: element.createdAt,
+          id: element.id,
+          updatedAt: element.updatedAt,
+          url: element.url,
+        );
+        result.add(movie);
+      });
+    }
+    return result;
+  }
+
+  DeleteRating mapDeleteRatingResponseToEntities(DeleteRatingResponse data) {
+    return DeleteRating(
+      success: data.success,
+      statusMessage: data.statusMessage,
+    );
+  }
+
+  Rate mapRateResponseToEntities(RateResponse data) {
+    return Rate(
+      success: data.success,
+      statusMessage: data.statusMessage,
+    );
+  }
+
+  // GuestSession mapGuestSessionRemoteToEntities(GuestSessionRemote data) {
+  //   return GuestSession(
+  //     success: data.success,
+  //     guestSessionId: data.guestSessionId,
+  //     expiresAt: data.expiresAt,
+  //   );
+  // }
+  //
+  // SessionLogin mapSessionLoginRemoteToEntities(SessionLoginRemote data) {
+  //   return SessionLogin(
+  //     success: data.success,
+  //     expiresAt: data.expiresAt,
+  //     requestToken: data.requestToken,
+  //   );
+  // }
+  //
+  // CreateSession mapCreateSessionRemoteToEntities(CreateSessionRemote data) {
+  //   return CreateSession(
+  //     success: data.success,
+  //     sessionId: data.sessionId,
+  //   );
+  // }
 }

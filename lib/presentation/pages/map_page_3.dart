@@ -138,7 +138,7 @@ class _Map3PageState extends State<Map3Page> {
                   Navigator.pushNamed(context, Map2Page.routeName);
                 },
                 child: Icon(
-                  Icons.search,
+                  Icons.map,
                   size: 26.0,
                 ),
               )),

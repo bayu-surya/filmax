@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:filmax/api_service.dart';
 import 'package:filmax/core/error/exception.dart';
-import 'package:filmax/core/util/api_service.dart';
 import 'package:filmax/data/models/movie_now.dart';
 import 'package:filmax/data/models/movie_popular.dart';
 import 'package:filmax/data/models/movie_top.dart';
@@ -52,7 +52,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<MoviePopular> getListMovePopular() async {
-    var url = Uri.parse(ApiService.baseUrl + "3/movie/popular?");
+    var url = Uri.parse(ApiService.baseUrl + "/movie/popular?");
     Map<String, String> qParams = {
       'api_key': ApiService.apiKey,
       'language': 'en-US',
@@ -69,7 +69,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<MovieTop> getListMoveTop() async {
-    var url = Uri.parse(ApiService.baseUrl + "3/movie/top_rated?");
+    var url = Uri.parse(ApiService.baseUrl + "/movie/top_rated?");
     Map<String, String> qParams = {
       'api_key': ApiService.apiKey,
       'language': 'en-US',
@@ -86,7 +86,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<MovieNow> getListMovieNow() async {
-    var url = Uri.parse(ApiService.baseUrl + "3/movie/now_playing?");
+    var url = Uri.parse(ApiService.baseUrl + "/movie/now_playing?");
     Map<String, String> qParams = {
       'api_key': ApiService.apiKey,
       'language': 'en-US',
@@ -103,7 +103,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<MovieUpcoming> getListMovieUpcoming() async {
-    var url = Uri.parse(ApiService.baseUrl + "3/movie/upcoming?");
+    var url = Uri.parse(ApiService.baseUrl + "/movie/upcoming?");
     Map<String, String> qParams = {
       'api_key': ApiService.apiKey,
       'language': 'en-US',

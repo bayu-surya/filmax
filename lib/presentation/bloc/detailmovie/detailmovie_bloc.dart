@@ -10,11 +10,6 @@ import 'package:filmax/domain/usecases/get_detail_movie.dart';
 part 'detailmovie_event.dart';
 part 'detailmovie_state.dart';
 
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE =
-    'Invalid Input - The number must be a positive integer or zero.';
-
 class DetailmovieBloc extends Bloc<DetailmovieEvent, DetailmovieState> {
   final GetDetailMovie getDetail;
 

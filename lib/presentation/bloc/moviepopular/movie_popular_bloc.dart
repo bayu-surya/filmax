@@ -11,11 +11,6 @@ import 'package:filmax/presentation/bloc/moviepopular/bloc.dart';
 // part '../bloc/movie_popular_event.dart';
 // part '../bloc/movie_popular_state.dart';
 
-const String SERVER_FAILURE_MESSAGE = 'Server Failure';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-const String INVALID_INPUT_FAILURE_MESSAGE =
-    'Invalid Input - The number must be a positive integer or zero.';
-
 class MoviePopularBloc extends Bloc<MoviePopularEvent, MoviePopularState> {
   // MoviePopularBloc() : super(MoviePopularInitial());
 
