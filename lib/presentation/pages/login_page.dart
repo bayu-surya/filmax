@@ -19,19 +19,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String _alertString = "";
-  String _noInduk = "";
   String _name = "";
-  String _address = "";
-  final TextEditingController noIndukController = TextEditingController();
+  String _password = "";
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree.
-    noIndukController.dispose();
     nameController.dispose();
-    addressController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
@@ -59,31 +56,25 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.bold,
                   fontSize: 16)),
           onPressed: () {
-            if (_noInduk == "") {
-              setState(() {
-                _alertString = "Anda belum mengisi No Induk";
-              });
-            } else if (_name == "") {
+            if (_name == "") {
               setState(() {
                 _alertString = "Anda belum mengisi Nama";
               });
-            } else if (_address == "") {
+            } else if (_password == "") {
               setState(() {
-                _alertString = "Anda belum mengisi Alamat";
+                _alertString = "Anda belum mengisi Password";
               });
             } else {
-              Login login = Login(username: _name, password: _address);
+              Login login = Login(username: _name, password: _password);
 
               BlocProvider.of<loginBloc.LoginBloc>(context)
                   .add(loginBloc.GetDataForLogin(login));
 
-              noIndukController.clear();
               nameController.clear();
-              addressController.clear();
+              passwordController.clear();
 
-              _noInduk = "";
               _name = "";
-              _address = "";
+              _password = "";
             }
           },
         ),
@@ -123,13 +114,6 @@ class _LoginPageState extends State<LoginPage> {
             _tittle,
             SizedBox(height: 8.0),
             EditText(
-                text: "No Induk",
-                onChanged: (value) {
-                  _noInduk = value;
-                },
-                textController: noIndukController),
-            SizedBox(height: 8.0),
-            EditText(
                 text: "Nama",
                 onChanged: (value) {
                   _name = value;
@@ -137,11 +121,11 @@ class _LoginPageState extends State<LoginPage> {
                 textController: nameController),
             SizedBox(height: 8.0),
             EditText(
-                text: "Alamat",
+                text: "Password",
                 onChanged: (value) {
-                  _address = value;
+                  _password = value;
                 },
-                textController: addressController),
+                textController: passwordController),
             SizedBox(height: 24.0),
             _loginButton,
           ],

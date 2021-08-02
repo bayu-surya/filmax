@@ -1,4 +1,7 @@
 import 'package:filmax/presentation/pages/home_page.dart';
+import 'package:filmax/presentation/pages/popuppage/popup_page.dart';
+import 'package:filmax/presentation/pages/tabviewpage/tab_view_page.dart';
+import 'package:filmax/presentation/pages/tabviewpage/view_main_page.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -17,19 +20,19 @@ class AppDrawer extends StatelessWidget {
           // Navigator.pushReplacementNamed(context, HomePage.routeName)),
           _createDrawerItem(
               icon: Icons.play_circle_outline,
-              text: 'Now Playing',
+              text: 'Tab View Page',
               onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                  HomePage.routeName, (Route<dynamic> route) => false)),
+                  TabViewPage.routeName, (Route<dynamic> route) => false)),
           _createDrawerItem(
               icon: Icons.show_chart,
-              text: 'Top Rated',
+              text: 'View Page',
               onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                  HomePage.routeName, (Route<dynamic> route) => false)),
+                  ViewMainPage.routeName, (Route<dynamic> route) => false)),
           _createDrawerItem(
               icon: Icons.queue_play_next,
-              text: 'Upcoming',
+              text: 'Popup Dialog',
               onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                  HomePage.routeName, (Route<dynamic> route) => false)),
+                  PopupPage.routeName, (Route<dynamic> route) => false)),
           Divider(
             thickness: 1.0,
           ),

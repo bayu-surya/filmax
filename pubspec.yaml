@@ -14,12 +14,16 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # localization
+  flutter_localizations:
+    sdk: flutter
+
   intl: ^0.17.0
   rxdart: ^0.27.1
   dio: ^4.0.0
 
   # test
-  mockito: ^5.0.12
+  mockito: ^5.0.13
   # Service locator
   get_it: ^7.2.0
   # state management
@@ -52,7 +56,9 @@ dependencies:
   flutter_shine: ^0.0.5
   google_fonts: ^2.1.0
   flutter_local_notifications: ^7.0.0
-  fluttertoast: ^8.0.7
+  fluttertoast: ^8.0.8
+  shimmer: ^2.0.0
+  carousel_slider: ^4.0.0
   #  webview_flutter: ^2.0.10
 
   # tidak dipakai
@@ -79,7 +85,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/logo_movieku.png
+    #    - images/logo_movieku.png
+    - images/
+    - assets/lang/
 
 flutter_icons:
   android: true

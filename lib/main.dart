@@ -1,5 +1,6 @@
 import 'package:filmax/core/common/navigation.dart';
 import 'package:filmax/core/common/styles.dart';
+import 'package:filmax/core/util/localizations_delegate.dart';
 import 'package:filmax/injection_container.dart';
 import 'package:filmax/presentation/bloc/deleterating/delete_rating_bloc.dart';
 import 'package:filmax/presentation/bloc/detailmovie/detailmovie_bloc.dart';
@@ -14,14 +15,19 @@ import 'package:filmax/presentation/bloc/review/review_bloc.dart';
 import 'package:filmax/presentation/bloc/user/user_bloc.dart';
 import 'package:filmax/presentation/pages/home_page.dart';
 import 'package:filmax/presentation/pages/login_page.dart';
-import 'package:filmax/presentation/pages/map_page.dart';
-import 'package:filmax/presentation/pages/map_page_2.dart';
-import 'package:filmax/presentation/pages/map_page_3.dart';
+import 'package:filmax/presentation/pages/map/map_main_page.dart';
+import 'package:filmax/presentation/pages/map/map_page.dart';
+import 'package:filmax/presentation/pages/map/map_page_2.dart';
+import 'package:filmax/presentation/pages/map/map_page_3.dart';
 import 'package:filmax/presentation/pages/movie_detail/movie_detail_page.dart';
+import 'package:filmax/presentation/pages/popuppage/popup_page.dart';
 import 'package:filmax/presentation/pages/splashscreen_page.dart';
+import 'package:filmax/presentation/pages/tabviewpage/tab_view_page.dart';
+import 'package:filmax/presentation/pages/tabviewpage/view_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'injection_container.dart' as di;
 
@@ -105,10 +111,33 @@ class MyApp extends StatelessWidget {
           MapPage.routeName: (context) => MapPage(),
           Map2Page.routeName: (context) => Map2Page(),
           Map3Page.routeName: (context) => Map3Page(),
+          MapMainPage.routeName: (context) => MapMainPage(),
+          TabViewPage.routeName: (context) => TabViewPage(),
+          ViewMainPage.routeName: (context) => ViewMainPage(),
+          PopupPage.routeName: (context) => PopupPage(),
           LoginPage.routeName: (context) => LoginPage(),
           MovieDetailPage.routeName: (context) => MovieDetailPage(
                 id: ModalRoute.of(context)!.settings.arguments.toString(),
               ),
+        },
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('id', 'ID'),
+        ],
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        localeResolutionCallback:
+            (Locale? locale, Iterable<Locale> supportedLocales) {
+          for (Locale supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale?.languageCode ||
+                supportedLocale.countryCode == locale?.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
         },
       ),
     );

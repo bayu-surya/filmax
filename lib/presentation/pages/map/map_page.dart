@@ -1,48 +1,38 @@
-import 'dart:async';
-
-import 'package:filmax/presentation/pages/map_page_3.dart';
+import 'package:filmax/presentation/pages/map/map_page_2.dart';
 import 'package:filmax/presentation/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:location/location.dart';
 
-class Map2Page extends StatefulWidget {
-  static const routeName = '/map2';
+class MapPage extends StatefulWidget {
+  static const routeName = '/map';
 
-  const Map2Page();
+  const MapPage();
 
   @override
-  _Map2PageState createState() => _Map2PageState();
+  _MapPageState createState() => _MapPageState();
 }
 
-class _Map2PageState extends State<Map2Page> {
+class _MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
   LatLng latlong = const LatLng(-6.200000, 106.816666);
   MapType _currentMapType = MapType.normal;
   final Set<Marker> _markers = {};
-
-  CameraPosition _cameraPosition = CameraPosition(
-    target: LatLng(-6.200000, 106.816666),
-    zoom: 11.0,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    _cameraPosition = CameraPosition(target: latlong, zoom: 10.0);
-    getCurrentLocation();
-  }
+  Location _location = Location();
 
   void _onCameraMove(CameraPosition position) {
     latlong = position.target;
   }
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-    mapController
-        .animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
+  void _onMapCreated(GoogleMapController _cntlr) {
+    mapController = _cntlr;
+    _location.onLocationChanged.listen((l) {
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(l.latitude!, l.longitude!), zoom: 15),
+        ),
+      );
+    });
   }
 
   @override
@@ -50,7 +40,7 @@ class _Map2PageState extends State<Map2Page> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Map 2 Google',
+          'Map 1 Location',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -61,7 +51,7 @@ class _Map2PageState extends State<Map2Page> {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, Map3Page.routeName);
+                  Navigator.pushNamed(context, Map2Page.routeName);
                 },
                 child: Icon(
                   Icons.map,
@@ -81,7 +71,11 @@ class _Map2PageState extends State<Map2Page> {
             trafficEnabled: true,
             myLocationButtonEnabled: true,
             myLocationEnabled: true,
-            initialCameraPosition: _cameraPosition,
+            // initialCameraPosition: _cameraPosition,
+            initialCameraPosition: CameraPosition(
+              target: latlong,
+              zoom: 11.0,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -136,64 +130,5 @@ class _Map2PageState extends State<Map2Page> {
         // BitmapDescriptor.fromAsset(‘assets/asset_name.png),
       ));
     });
-  }
-
-  //get current location
-  Future getCurrentLocation() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    // ignore: unrelated_type_equality_checks
-    if (permission != PermissionStatus.granted) {
-      LocationPermission permission = await Geolocator.requestPermission();
-      // ignore: unrelated_type_equality_checks
-      if (permission != PermissionStatus.granted) getLocation();
-      return;
-    }
-    getLocation();
-  }
-
-  List<Address> results = [];
-  getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position.latitude);
-
-    setState(() {
-      latlong = new LatLng(position.latitude, position.longitude);
-      _cameraPosition = CameraPosition(target: latlong, zoom: 10.0);
-      mapController
-          .animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
-
-      _markers.add(Marker(
-          markerId: MarkerId("a"),
-          draggable: true,
-          position: latlong,
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-          onDragEnd: (_currentlatLng) {
-            latlong = _currentlatLng;
-          }));
-    });
-
-    getCurrentAddress();
-  }
-
-  getCurrentAddress() async {
-    final coordinates = new Coordinates(latlong.latitude, latlong.longitude);
-    results = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    var first = results.first;
-    var address;
-    address = first.featureName;
-    address = " $address, ${first.subLocality}";
-    address = " $address, ${first.subLocality}";
-    address = " $address, ${first.locality}";
-    address = " $address, ${first.countryName}";
-    address = " $address, ${first.postalCode}";
-
-    // locationController.text = address;
-
-    print("atmoko 1" + address);
-    print("atmoko 2" +
-        latlong.latitude.toString() +
-        " " +
-        latlong.longitude.toString());
   }
 }

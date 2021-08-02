@@ -1,15 +1,19 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:filmax/core/common/styles.dart';
 import 'package:filmax/core/util/data_mapper.dart' as mapper;
+import 'package:filmax/core/util/language_manager.dart';
+import 'package:filmax/core/util/localizations.dart';
 import 'package:filmax/presentation/bloc/movienow/movie_now_bloc.dart' as now;
 import 'package:filmax/presentation/bloc/moviepopular/bloc.dart';
 import 'package:filmax/presentation/bloc/moviepopular/movie_popular_bloc.dart';
 import 'package:filmax/presentation/bloc/movietop/movie_top_bloc.dart' as top;
 import 'package:filmax/presentation/bloc/movieupcoming/movie_upcoming_bloc.dart'
     as upcoming;
-import 'package:filmax/presentation/pages/map_page.dart';
+import 'package:filmax/presentation/pages/map/map_main_page.dart';
 import 'package:filmax/presentation/widgets/alert_connection.dart';
 import 'package:filmax/presentation/widgets/app_drawer.dart';
 import 'package:filmax/presentation/widgets/card_nowplaying.dart';
+import 'package:filmax/presentation/widgets/card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +50,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Home',
+          // 'Home',
+          AppLocalizations.of(context).trans(LanguageManager.home)!,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -54,160 +59,214 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: <Widget>[
           Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, MapPage.routeName);
-                  _showToast();
-                },
-                child: Icon(
-                  Icons.map,
-                  size: 26.0,
-                ),
-              )),
+            padding: EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, MapMainPage.routeName);
+                _showToast();
+              },
+              child: Icon(
+                Icons.map,
+                size: 26.0,
+              ),
+            ),
+          ),
         ],
       ),
       drawer: AppDrawer(),
       body: WillPopScope(
-          child: SingleChildScrollView(
-            // child: BlocProvider(
-            //   create: (_) => sl<MoviePopularBloc>(),
-            child: Column(
-              children: <Widget>[
-                _tittleListView("Now Playing"),
-                Container(
-                  height: 270,
-                  child: BlocBuilder<now.MovieNowBloc, now.MovieNowState>(
-                    builder: (context, state) {
-                      if (state is now.Empty) {
-                        return _buildContainerNoData("Empty");
-                      } else if (state is now.Loading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is now.Loaded) {
-                        return Center(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.all(3.0),
-                            itemCount: state.data.length,
-                            itemBuilder: (context, index) {
-                              return CardArticle(
-                                article: mapper.DataMapper()
-                                    .entitieToModel(state.data[index]),
-                                jenis: '',
-                              );
-                            },
+        child: SingleChildScrollView(
+          // child: BlocProvider(
+          //   create: (_) => sl<MoviePopularBloc>(),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 15),
+              CarouselSlider(
+                items: [1, 2, 3, 4, 5].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Card(
+                        elevation: 1.7,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 0.1),
+                            decoration: BoxDecoration(color: primaryColor),
+                            child: Center(
+                              child: Text(
+                                'urutan $i',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 16.0),
+                              ),
+                            ),
                           ),
-                        );
-                      } else if (state is now.Error) {
-                        return _buildCenter(state.message);
-                      } else {
-                        return Center(child: Text(''));
-                      }
+                        ),
+                      );
                     },
-                  ),
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                  height: 150,
+                  aspectRatio: 9 / 12,
+                  viewportFraction: 0.6,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                  // onPageChanged: callbackFunction,
                 ),
-                _tittleListView("Top Rated"),
-                Container(
-                  height: 270,
-                  child: BlocBuilder<top.MovieTopBloc, top.MovieTopState>(
-                    builder: (context, state) {
-                      if (state is top.Empty) {
-                        return _buildContainerNoData("Empty");
-                      } else if (state is top.Loading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is top.Loaded) {
-                        return Center(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.all(3.0),
-                            itemCount: state.data.length,
-                            itemBuilder: (context, index) {
-                              return CardArticle(
-                                article: mapper.DataMapper()
-                                    .entitieToModel(state.data[index]),
-                                jenis: '',
-                              );
-                            },
-                          ),
-                        );
-                      } else if (state is top.Error) {
-                        return _buildCenter(state.message);
-                      } else {
-                        return Center(child: Text(''));
-                      }
-                    },
-                  ),
+              ),
+              // CarouselSlider.builder(
+              //   options: CarouselOptions(height: 400.0),
+              //   itemCount: 15,
+              //   itemBuilder: (BuildContext context, int itemIndex,
+              //           int pageViewIndex) =>
+              //       Container(
+              //     child: Text(itemIndex.toString()),
+              //   ),
+              // ),
+              _tittleListView("Now Playing"),
+              Container(
+                height: 270,
+                child: BlocBuilder<now.MovieNowBloc, now.MovieNowState>(
+                  builder: (context, state) {
+                    if (state is now.Empty) {
+                      return _buildContainerNoData("Empty");
+                    } else if (state is now.Loading) {
+                      return CardShimmer();
+                    } else if (state is now.Loaded) {
+                      return Center(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.all(3.0),
+                          itemCount: state.data.length,
+                          itemBuilder: (context, index) {
+                            return CardArticle(
+                              article: mapper.DataMapper()
+                                  .entitieToModel(state.data[index]),
+                              jenis: '',
+                            );
+                          },
+                        ),
+                      );
+                    } else if (state is now.Error) {
+                      return _buildCenter(state.message);
+                    } else {
+                      return Center(child: Text(''));
+                    }
+                  },
                 ),
-                _tittleListView("Popular"),
-                Container(
-                  height: 270,
-                  child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
-                    builder: (context, state) {
-                      if (state is Empty) {
-                        return _buildContainerNoData("Empty");
-                      } else if (state is Loading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is Loaded) {
-                        return Center(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.all(3.0),
-                            itemCount: state.data.length,
-                            itemBuilder: (context, index) {
-                              return CardArticle(
-                                article: mapper.DataMapper()
-                                    .entitieToModel(state.data[index]),
-                                jenis: '',
-                              );
-                            },
-                          ),
-                        );
-                      } else if (state is Error) {
-                        return _buildCenter(state.message);
-                      } else {
-                        return Center(child: Text(''));
-                      }
-                    },
-                  ),
+              ),
+              _tittleListView("Top Rated"),
+              Container(
+                height: 270,
+                child: BlocBuilder<top.MovieTopBloc, top.MovieTopState>(
+                  builder: (context, state) {
+                    if (state is top.Empty) {
+                      return _buildContainerNoData("Empty");
+                    } else if (state is top.Loading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is top.Loaded) {
+                      return Center(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.all(3.0),
+                          itemCount: state.data.length,
+                          itemBuilder: (context, index) {
+                            return CardArticle(
+                              article: mapper.DataMapper()
+                                  .entitieToModel(state.data[index]),
+                              jenis: '',
+                            );
+                          },
+                        ),
+                      );
+                    } else if (state is top.Error) {
+                      return _buildCenter(state.message);
+                    } else {
+                      return Center(child: Text(''));
+                    }
+                  },
                 ),
-                _tittleListView("Upcoming"),
-                Container(
-                  height: 270,
-                  child: BlocBuilder<upcoming.MovieUpcomingBloc,
-                      upcoming.MovieUpcomingState>(
-                    builder: (context, state) {
-                      if (state is upcoming.Empty) {
-                        return _buildContainerNoData("Empty");
-                      } else if (state is upcoming.Loading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is upcoming.Loaded) {
-                        return Center(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.all(3.0),
-                            itemCount: state.data.length,
-                            itemBuilder: (context, index) {
-                              return CardArticle(
-                                article: mapper.DataMapper()
-                                    .entitieToModel(state.data[index]),
-                                jenis: '',
-                              );
-                            },
-                          ),
-                        );
-                      } else if (state is upcoming.Error) {
-                        return _buildCenter(state.message);
-                      } else {
-                        return Center(child: Text(''));
-                      }
-                    },
-                  ),
+              ),
+              _tittleListView("Popular"),
+              Container(
+                height: 270,
+                child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
+                  builder: (context, state) {
+                    if (state is Empty) {
+                      return _buildContainerNoData("Empty");
+                    } else if (state is Loading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is Loaded) {
+                      return Center(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.all(3.0),
+                          itemCount: state.data.length,
+                          itemBuilder: (context, index) {
+                            return CardArticle(
+                              article: mapper.DataMapper()
+                                  .entitieToModel(state.data[index]),
+                              jenis: '',
+                            );
+                          },
+                        ),
+                      );
+                    } else if (state is Error) {
+                      return _buildCenter(state.message);
+                    } else {
+                      return Center(child: Text(''));
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+              _tittleListView("Upcoming"),
+              Container(
+                height: 270,
+                child: BlocBuilder<upcoming.MovieUpcomingBloc,
+                    upcoming.MovieUpcomingState>(
+                  builder: (context, state) {
+                    if (state is upcoming.Empty) {
+                      return _buildContainerNoData("Empty");
+                    } else if (state is upcoming.Loading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is upcoming.Loaded) {
+                      return Center(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.all(3.0),
+                          itemCount: state.data.length,
+                          itemBuilder: (context, index) {
+                            return CardArticle(
+                              article: mapper.DataMapper()
+                                  .entitieToModel(state.data[index]),
+                              jenis: '',
+                            );
+                          },
+                        ),
+                      );
+                    } else if (state is upcoming.Error) {
+                      return _buildCenter(state.message);
+                    } else {
+                      return Center(child: Text(''));
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
-          onWillPop: _onWillPopA),
-      // ),
+        ),
+        onWillPop: _onWillPopA,
+      ),
     );
   }
 
@@ -233,17 +292,17 @@ class _HomePageState extends State<HomePage> {
   Future<bool> _onWillPopB() async {
     return (await showDialog(
           context: context,
-          builder: (context) => new AlertDialog(
+          builder: (context) => AlertDialog(
             title: Text("Peringatan"),
             content: Text(
               "Apakah anda akan keluar aplikasi ?",
             ),
             actions: <Widget>[
-              new FlatButton(
+              FlatButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text("Tidak"),
               ),
-              new FlatButton(
+              FlatButton(
                 onPressed: () {
                   SystemNavigator.pop();
                   // if (Platform.isAndroid) {

@@ -1,4 +1,4 @@
-import 'package:filmax/presentation/pages/map_page_2.dart';
+import 'package:filmax/presentation/pages/map/map_page_2.dart';
 import 'package:filmax/presentation/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
