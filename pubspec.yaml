@@ -17,11 +17,10 @@ dependencies:
   # localization
   flutter_localizations:
     sdk: flutter
-
+  # tidak tahu
   intl: ^0.17.0
   rxdart: ^0.27.1
   dio: ^4.0.0
-
   # test
   mockito: ^5.0.13
   # Service locator
@@ -46,8 +45,11 @@ dependencies:
   geocoder: ^0.2.1
   geocoding: ^2.0.0
   location: ^4.3.0
-  #other
+  # other
   permission_handler: ^8.1.4+1
+  # firebase
+  firebase_messaging: ^10.0.4
+#  firebase_core: ^1.4.0
   # view
   cupertino_icons: ^1.0.3
   flutter_rating_bar: ^4.0.0

@@ -1,4 +1,5 @@
 import 'package:filmax/presentation/pages/home_page.dart';
+import 'package:filmax/presentation/pages/home_page2.dart';
 import 'package:filmax/presentation/pages/popuppage/popup_page.dart';
 import 'package:filmax/presentation/pages/tabviewpage/tab_view_page.dart';
 import 'package:filmax/presentation/pages/tabviewpage/view_main_page.dart';
@@ -33,6 +34,11 @@ class AppDrawer extends StatelessWidget {
               text: 'Popup Dialog',
               onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
                   PopupPage.routeName, (Route<dynamic> route) => false)),
+          _createDrawerItem(
+              icon: Icons.home,
+              text: 'Home',
+              onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  HomePage2.routeName, (Route<dynamic> route) => false)),
           Divider(
             thickness: 1.0,
           ),
